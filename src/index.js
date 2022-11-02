@@ -15,6 +15,7 @@ function initializeCode() {
 
 async function getBreeds() {
   const items = document.getElementById("items");
+  items.setAttribute("class", "container")
   // let breeds = []
   const url = "https://dog.ceo/api/breeds/list/all";
   try {
@@ -25,7 +26,6 @@ async function getBreeds() {
       // console.log(breed);
       // breeds.push(breed);
       let item = document.createElement("div");
-      item.setAttribute("class", "container");
       item.innerHTML =
         '<div class="wiki-item" >' +
         '<h1 class="wiki-header">' +
@@ -35,14 +35,15 @@ async function getBreeds() {
         '<p class="wiki-text">Some text about this breed.</p>' +
         '<div class="img-container">' +
         '<img class="wiki-img" src=' +
-        await getImageAddress(breed) +
-        " alt = " + breed +
+        (await getImageAddress(breed)) +
+        " alt = " +
+        breed +
         " width = 500 heigth = 500>" +
         "</div></div></div>";
       items.appendChild(item);
     }
   } catch (err) {
-    alert("Getting all breeds failed: " + err)
+    console.log("Getting all breeds failed: " + err);
   }
 }
 
@@ -52,7 +53,7 @@ async function getImageAddress(breed) {
     const imgPromise = await fetch(url);
     const imgJSON = await imgPromise.json();
     return imgJSON.message;
-  } catch(err) {
-    alert("Getting images failed: " + err)
+  } catch (err) {
+    console.log("Getting images failed: " + err);
   }
 }
