@@ -28,7 +28,9 @@ async function getBreeds() {
         breed +
         "</h1>" +
         '<div class="wiki-content">' +
-        '<p class="wiki-text">Some text about this breed.</p>' +
+        '<p class="wiki-text">' +
+        (await getInfo(breed)) +
+        "</p>" +
         '<div class="img-container">' +
         '<img class="wiki-img" src=' +
         (await getImageAddress(breed)) +
@@ -51,5 +53,16 @@ async function getImageAddress(breed) {
     return imgJSON.message;
   } catch (err) {
     console.log("Getting images failed: " + err);
+  }
+}
+
+async function getInfo(breed) {
+  const url = "https://en.wikipedia.org/api/rest_v1/page/summary/" + breed;
+  try {
+    const infoPromise = await fetch(url);
+    const infoJSON = await infoPromise.json();
+    return infoJSON.extract;
+  } catch (err) {
+    console.log("Getting wiki info failed: " + err);
   }
 }
