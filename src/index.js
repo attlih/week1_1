@@ -9,7 +9,7 @@ if (document.readyState !== "loading") {
 }
 
 function initializeCode() {
-  document.getElementById("app").innerHTML = "<h1>Hello!</h1>";
+  // document.getElementById("app").innerHTML = "<h1>Hello!</h1>";
   getBreeds();
 }
 
