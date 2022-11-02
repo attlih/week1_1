@@ -15,16 +15,12 @@ function initializeCode() {
 
 async function getBreeds() {
   const items = document.getElementById("items");
-  items.setAttribute("class", "container")
-  // let breeds = []
+  items.setAttribute("class", "container");
   const url = "https://dog.ceo/api/breeds/list/all";
   try {
     const breedsPromise = await fetch(url);
-    const breedsJSON = await breedsPromise.json();
-    // console.log(breedsJSON.message);
+    const breedsJSON = await breedsPromise.json("div");
     for (const breed in breedsJSON.message) {
-      // console.log(breed);
-      // breeds.push(breed);
       let item = document.createElement("div");
       item.innerHTML =
         '<div class="wiki-item" >' +
@@ -39,7 +35,7 @@ async function getBreeds() {
         " alt = " +
         breed +
         " width = 500 heigth = 500>" +
-        "</div></div></div>";
+        "</div></div>";
       items.appendChild(item);
     }
   } catch (err) {
