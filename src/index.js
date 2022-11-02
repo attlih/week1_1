@@ -22,8 +22,8 @@ async function getBreeds() {
     const breedsJSON = await breedsPromise.json("div");
     for (const breed in breedsJSON.message) {
       let item = document.createElement("div");
+      item.setAttribute("class", "wiki-item");
       item.innerHTML =
-        '<div class="wiki-item" >' +
         '<h1 class="wiki-header">' +
         breed +
         "</h1>" +
