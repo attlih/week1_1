@@ -22,13 +22,11 @@ async function getBreeds() {
     const breedsJSON = await breedsPromise.json("div");
     const breeds = Object.getOwnPropertyNames(breedsJSON.message);
     console.log(breeds.slice(0, 5));
-    breeds.slice(0, 5).forEach((breed, i) => {
-      
-    })
     for (const breed of breeds.slice(0,5)) {
       let item = document.createElement("div");
-      item.className = "wiki-item";
+      item.className = "container";
       item.innerHTML =
+      '<div class="wiki-item" >' +
         '<h1 class="wiki-header">' +
         breed +
         "</h1>" +
@@ -41,7 +39,7 @@ async function getBreeds() {
         (await getImageAddress(breed)) +
         " alt = " +
         breed +
-        "</div></div>";
+        "</div></div></div>";
       items.appendChild(item);
     }
   } catch (err) {
