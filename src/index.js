@@ -20,9 +20,14 @@ async function getBreeds() {
   try {
     const breedsPromise = await fetch(url);
     const breedsJSON = await breedsPromise.json("div");
-    for (const breed in breedsJSON.message) {
+    const breeds = Object.getOwnPropertyNames(breedsJSON.message);
+    console.log(breeds.slice(0, 5));
+    breeds.slice(0, 5).forEach((breed, i) => {
+      
+    })
+    for (const breed of breeds.slice(0,5)) {
       let item = document.createElement("div");
-      item.className = "wiki-item"
+      item.className = "wiki-item";
       item.innerHTML =
         '<h1 class="wiki-header">' +
         breed +
@@ -36,7 +41,6 @@ async function getBreeds() {
         (await getImageAddress(breed)) +
         " alt = " +
         breed +
-        " width = 500 heigth = 500>" +
         "</div></div>";
       items.appendChild(item);
     }
@@ -58,11 +62,13 @@ async function getImageAddress(breed) {
 
 async function getInfo(breed) {
   const url = "https://en.wikipedia.org/api/rest_v1/page/summary/" + breed;
+  let desc = "Couldn't find info from wikipedia";
   try {
     const infoPromise = await fetch(url);
     const infoJSON = await infoPromise.json();
-    return infoJSON.extract;
+    desc = infoJSON.extract;
   } catch (err) {
     console.log("Getting wiki info failed: " + err);
   }
+  return desc;
 }
