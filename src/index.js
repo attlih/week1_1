@@ -31,11 +31,13 @@ async function getBreeds() {
         "</h1>" +
         '<div class="wiki-content">' +
         '<p class="wiki-text">' +
-        (await getInfo(breed)) +
+        breed
+        // (await getInfo(breed)) +
         "</p>" +
         '<div class="img-container">' +
         '<img class="wiki-img" src=' +
-        (await getImageAddress(breed)) +
+        
+        // (await getImageAddress(breed)) +
         " alt = " +
         breed +
         "</div></div></div>";
