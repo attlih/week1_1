@@ -15,14 +15,14 @@ function initializeCode() {
 
 async function getBreeds() {
   const items = document.getElementById("items");
-  items.setAttribute("class", "container");
+  items.className = "container"
   const url = "https://dog.ceo/api/breeds/list/all";
   try {
     const breedsPromise = await fetch(url);
     const breedsJSON = await breedsPromise.json("div");
     for (const breed in breedsJSON.message) {
       let item = document.createElement("div");
-      item.createAttribute("class", "wiki-item");
+      item.className = "wiki-item"
       item.innerHTML =
         '<h1 class="wiki-header">' +
         breed +
