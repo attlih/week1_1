@@ -15,7 +15,6 @@ function initializeCode() {
 
 async function getBreeds() {
   const items = document.getElementById("items");
-  items.className = "container"
   const url = "https://dog.ceo/api/breeds/list/all";
   try {
     const breedsPromise = await fetch(url);
