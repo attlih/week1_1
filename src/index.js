@@ -21,53 +21,42 @@ async function getBreeds() {
     const breedsJSON = await breedsPromise.json("div");
     const breeds = Object.getOwnPropertyNames(breedsJSON.message);
     console.log(breeds.slice(0, 5));
-    for (const breed of breeds.slice(0,5)) {
+    for (const breed of breeds.slice(0, 5)) {
       let item = document.createElement("div");
       item.className = "container";
       item.innerHTML =
-      '<div class="wiki-item" >' +
-        '<h1 class="wiki-header">' +
-        breed +
-        "</h1>" +
-        '<div class="wiki-content">' +
-        '<p class="wiki-text">' +
-        breed
-        // (await getInfo(breed)) +
-        "</p>" +
-        '<div class="img-container">' +
-        '<img class="wiki-img" src=' +
-        
-        // (await getImageAddress(breed)) +
-        " alt = " +
-        breed +
-        "</div></div></div>";
+        `<div class="wiki-item" >
+        <h1 class="wiki-header">${breed}</h1>
+        <div class="wiki-content">
+        <p class="wiki-text">${await getInfo(breed)}</p>
+        <div class="img-container">
+        <img class="wiki-img" src=${await getImageAddress(breed)} alt=${breed} 
+        </div></div></div>`;
       items.appendChild(item);
     }
   } catch (err) {
-    console.log("Getting all breeds failed: " + err);
+    console.error("Getting all breeds failed: " + err);
   }
 }
 
 async function getImageAddress(breed) {
-  const url = "https://dog.ceo/api/breed/" + breed + "/images/random";
+  const url = `https://dog.ceo/api/breed/${breed}/images/random`;
   try {
     const imgPromise = await fetch(url);
     const imgJSON = await imgPromise.json();
     return imgJSON.message;
-  } catch (err) {
-    console.log("Getting images failed: " + err);
+  } catch(err) {
+    console.error("Getting images failed: " + err);
   }
 }
 
 async function getInfo(breed) {
-  const url = "https://en.wikipedia.org/api/rest_v1/page/summary/" + breed;
-  let desc = "Couldn't find info from wikipedia";
+  const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${breed}`;
   try {
     const infoPromise = await fetch(url);
     const infoJSON = await infoPromise.json();
-    desc = infoJSON.extract;
-  } catch (err) {
-    console.log("Getting wiki info failed: " + err);
+    return infoJSON.extract;
+  } catch(err) {
+    console.error("Getting wiki info failed: " + err);
   }
-  return desc;
 }
